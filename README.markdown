@@ -2,7 +2,7 @@
 
 ## About
 
-Thankful Eyes is a bookmarklet which automatically increases font size of body
+Thankful Eyes is a bookmarklet which automatically increases the font size of body
 text for optimum readability.
 
 ## Installation
