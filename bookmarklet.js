@@ -28,28 +28,29 @@ function theyes_adjust_fonts() {
 }
 
 ( function() {
-  if(typeof jQuery!='undefined') {
-  } else if (typeof $=='function') {
-    otherlib=true;
-  }
 
-  function getScript(url,success){
-    var script=document.createElement('script');
-    script.src=url;
-    var head=document.getElementsByTagName('head')[0],
-        done=false;
-    script.onload=script.onreadystatechange = function(){
-      if ( !done && (!this.readyState
-           || this.readyState == 'loaded'
-           || this.readyState == 'complete') ) {
-        done=true;
-        success();
-      }
-    };
-    head.appendChild(script);
-  }
-  getScript('http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js',function() {
-    theyes_adjust_fonts();
-  });
+    function getScript( url,success ) {
+        var script = document.createElement('script');
+        script.src = url;
+        var head = document.getElementsByTagName( 'head' )[0],
+            done = false;
+        script.onload = script.onreadystatechange = function() {
+            if(
+                ! done && (
+                    ! this.readyState
+                    || this.readyState == 'loaded'
+                    || this.readyState == 'complete'
+                )
+            ) {
+                done = true;
+                success();
+            }
+        };
+        head.appendChild( script );
+    }
+
+    getScript( 'http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js', function() {
+        theyes_adjust_fonts();
+    } );
 
 } )();
