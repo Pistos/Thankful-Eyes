@@ -11,13 +11,10 @@ function theyes_average_words_per_line( e ) {
 }
 
 function theyes_adjust_fonts( root ) {
-    var theyes_c = 0;
-    jQuery( 'div, p, font' ).each( function() {
+    jQuery( 'div,p,font' ).not( ':has(div,p)' ).each( function() {
         $(this).css( 'line-height', '1.3' );
         var avg_words_per_line = theyes_average_words_per_line( this );
-        var adjusted = false;
         while( avg_words_per_line > theyes_desired_words_per_line ) {
-            adjusted = true;
             var font_size = parseInt( $(this).css( 'font-size' ) ) + 1;
             if( font_size > theyes_maximum_font_size ) {
                 break;
@@ -25,9 +22,6 @@ function theyes_adjust_fonts( root ) {
                 $(this).css( 'font-size', font_size + 'px' );
                 avg_words_per_line = theyes_average_words_per_line( this );
             }
-        }
-        if( adjusted ) {
-            theyes_c++;
         }
     } );
 }
