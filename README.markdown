@@ -8,7 +8,7 @@ text for optimum readability.
 ## Installation
 
 Copy the whole contents of bookmarklet.js (including the "javascript: "
-part at the beginning)and paste into the URL or Address field when creating a
+part at the beginning) and paste into the URL or Address field when creating a
 new bookmark in your browser.  For convenience, also put the bookmarklet on a
 toolbar.
 
