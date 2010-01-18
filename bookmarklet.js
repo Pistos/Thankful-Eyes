@@ -16,8 +16,12 @@ function theyes_adjust_fonts( root ) {
         while( avg_words_per_line > 13 ) {
             adjusted = true;
             var font_size = parseInt( $(this).css( 'font-size' ) ) + 1;
-            $(this).css( 'font-size', font_size + 'px' );
-            avg_words_per_line = theyes_average_words_per_line( this );
+            if( font_size > 20 ) {
+                break;
+            } else {
+                $(this).css( 'font-size', font_size + 'px' );
+                avg_words_per_line = theyes_average_words_per_line( this );
+            }
         }
         if( adjusted ) {
             theyes_c++;
