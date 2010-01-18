@@ -13,7 +13,9 @@ function theyes_average_words_per_line( e ) {
 
 function theyes_adjust_fonts() {
     jQuery( 'div,p,font' ).not( ':has(div,p,h1,h2,h3,h4,h5,h6,table)' ).each( function() {
-        $(this).css( 'line-height', theyes_initial_line_height );
+        if( $(this).css( 'line-height' ) == 'normal' ) {
+            $(this).css( 'line-height', theyes_initial_line_height );
+        }
         var avg_words_per_line = theyes_average_words_per_line( this );
         while( avg_words_per_line > theyes_desired_words_per_line ) {
             var font_size = parseInt( $(this).css( 'font-size' ) ) + 1;
