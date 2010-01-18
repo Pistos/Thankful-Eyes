@@ -12,21 +12,38 @@ function theyes_average_words_per_line( e ) {
 }
 
 function theyes_adjust_fonts() {
+    var smallest_new_font_size;
+    var unadjusted = [];
+
     jQuery( 'div,p,font' ).not( ':has(div,p,h1,h2,h3,h4,h5,h6,table)' ).each( function() {
         if( $(this).css( 'line-height' ) == 'normal' ) {
             $(this).css( 'line-height', theyes_initial_line_height );
         }
         var avg_words_per_line = theyes_average_words_per_line( this );
+        var font_size;
+        var adjusted = false;
         while( avg_words_per_line > theyes_desired_words_per_line ) {
-            var font_size = parseInt( $(this).css( 'font-size' ) ) + 1;
+            font_size = parseInt( $(this).css( 'font-size' ) ) + 1;
             if( font_size > theyes_maximum_font_size ) {
                 break;
             } else {
                 $(this).css( 'font-size', font_size + 'px' );
                 avg_words_per_line = theyes_average_words_per_line( this );
+                adjusted = true;
             }
         }
+        if( ! adjusted ) {
+            unadjusted.push( this );
+        } else if( font_size && ! smallest_new_font_size || font_size < smallest_new_font_size ) {
+            smallest_new_font_size = font_size;
+        }
     } );
+
+    if( smallest_new_font_size ) {
+        $.each( unadjusted, function() {
+            $(this).css( 'font-size', smallest_new_font_size + 'px' );
+        } );
+    }
 }
 
 ( function() {
