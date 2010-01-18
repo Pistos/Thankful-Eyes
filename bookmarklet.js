@@ -1,5 +1,8 @@
 javascript:
 
+var theyes_desired_words_per_line = 13;
+var theyes_maximum_font_size = 30 /* pixels */;
+
 function theyes_average_words_per_line( e ) {
     var word_count = jQuery( e ).text().split( /\b[\s,\.-:;]*/ ).length;
     var line_height = parseInt( $(e).css( 'line-height' ) );
@@ -13,10 +16,10 @@ function theyes_adjust_fonts( root ) {
         $(this).css( 'line-height', '1.3' );
         var avg_words_per_line = theyes_average_words_per_line( this );
         var adjusted = false;
-        while( avg_words_per_line > 13 ) {
+        while( avg_words_per_line > theyes_desired_words_per_line ) {
             adjusted = true;
             var font_size = parseInt( $(this).css( 'font-size' ) ) + 1;
-            if( font_size > 20 ) {
+            if( font_size > theyes_maximum_font_size ) {
                 break;
             } else {
                 $(this).css( 'font-size', font_size + 'px' );
