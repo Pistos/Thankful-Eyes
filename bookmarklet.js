@@ -9,7 +9,7 @@ function theyes_average_words_per_line( e ) {
 
 function theyes_adjust_fonts( root ) {
     var theyes_c = 0;
-    jQuery( 'div, p' ).each( function() {
+    jQuery( 'div, p, font' ).each( function() {
         $(this).css( 'line-height', '1.3' );
         var avg_words_per_line = theyes_average_words_per_line( this );
         var adjusted = false;
