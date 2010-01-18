@@ -44,6 +44,6 @@ function theyes_adjust_fonts( root ) {
 }
 
 ( function() {
-    theyes_load_js( 'http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js', 'selfmarks-jquery' );
+    theyes_load_js( 'http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js', 'thankful-eyes-jquery' );
     theyes_adjust_fonts( document );
 } )();
