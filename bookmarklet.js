@@ -1,23 +1,5 @@
 javascript:
 
-function theyes_load_js( uri, id ) {
-    var script_tag = document.getElementById( id );
-    if( script_tag ) {
-        script_tag.parentNode.removeChild( script_tag );
-    }
-
-    if( typeof( jQuery ) != 'undefined' ) {
-        /* To force browser cache update */
-        jQuery.get( uri );
-    }
-
-    var script  = document.createElement( 'SCRIPT' );
-    script.type = 'text/javascript';
-    script.src  = uri;
-    script.id   = id;
-    document.getElementsByTagName('head')[0].appendChild( script );
-}
-
 function theyes_average_words_per_line( e ) {
     var word_count = jQuery( e ).text().split( /\b[\s,\.-:;]*/ ).length;
     var line_height = parseInt( $(e).css( 'line-height' ) );
@@ -44,6 +26,71 @@ function theyes_adjust_fonts( root ) {
 }
 
 ( function() {
-    theyes_load_js( 'http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js', 'thankful-eyes-jquery' );
+  var el=document.createElement('div'),
+      b=document.getElementsByTagName('body')[0];
+      otherlib=false,
+      msg='';
+  el.style.position='fixed';
+  el.style.height='32px';
+  el.style.width='220px';
+  el.style.marginLeft='-110px';
+  el.style.top='0';
+  el.style.left='50%';
+  el.style.padding='5px 10px 5px 10px';
+  el.style.zIndex = 1001;
+  el.style.fontSize='12px';
+  el.style.color='#222';
+  el.style.backgroundColor='#f99';
+
+  if(typeof jQuery!='undefined') {
+    msg='This page already using jQuery v'+jQuery.fn.jquery;
+    return showMsg();
+  } else if (typeof $=='function') {
+    otherlib=true;
+  }
+
+  function getScript(url,success){
+    var script=document.createElement('script');
+    script.src=url;
+    var head=document.getElementsByTagName('head')[0],
+        done=false;
+    script.onload=script.onreadystatechange = function(){
+      if ( !done && (!this.readyState
+           || this.readyState == 'loaded'
+           || this.readyState == 'complete') ) {
+        done=true;
+        success();
+      }
+    };
+    head.appendChild(script);
+  }
+  getScript('http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js',function() {
+    if (typeof jQuery=='undefined') {
+      msg='Sorry, but jQuery wasn\'t able to load';
+      showMsg()
+    } else {
+      msg='This page is now jQuerified with v' + jQuery.fn.jquery;
+      if (otherlib) {msg+=' and noConflict(). Use $jq(), not $().';}
+      /* showMsg() */
+    }
     theyes_adjust_fonts( document );
+  });
+  function showMsg() {
+    el.innerHTML=msg;
+    b.appendChild(el);
+    window.setTimeout(function() {
+      if (typeof jQuery=='undefined') {
+        b.removeChild(el);
+      } else {
+        jQuery(el).fadeOut('slow',function() {
+          jQuery(this).remove();
+        });
+        if (otherlib) {
+          $jq=jQuery.noConflict();
+        }
+      }
+    } ,2500);
+  }
+
 } )();
+
