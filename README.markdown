@@ -15,6 +15,7 @@ toolbar.
 ## Usage
 
 Click your bookmarklet button on any page that has illegibly small body text.
+To undo the changes made by Thankful Eyes, refresh the page.
 
 ## Notes
 
@@ -33,5 +34,9 @@ Using Thankful Eyes is better than simply maintaining a minimum font size with
 your browser settings because doing that increases the size of many elements
 which usually do not require magnification, such as sidebar text, menu items,
 small labels, and so on.  Thankful Eyes aims to adjust only body text.
+
+Thankful Eyes is better than using browser zoom, because browser zoom also
+magnifies and distorts images.
+
 
 [1]: http://www.google.com/search?q=%2212+words+per+line%22
