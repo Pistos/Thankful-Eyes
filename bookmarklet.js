@@ -2,7 +2,7 @@ javascript:
 
 var theyes_desired_words_per_line = 13;
 var theyes_maximum_font_size = 30; /* pixels */
-var theyes_initial_line_height = '1.3'; /* em */
+var theyes_normal_line_height = '1.3'; /* em */
 
 function theyes_average_words_per_line( e ) {
     var word_count = jQuery( e ).text().split( /\b[\s,\.-:;]*/ ).length;
@@ -14,11 +14,13 @@ function theyes_average_words_per_line( e ) {
 function theyes_adjust_fonts() {
     var smallest_new_font_size;
     var unadjusted = [];
+    var prior_line_height;
 
     jQuery( 'div,p,font' ).not( ':has(div,p,h1,h2,h3,h4,h5,h6,table)' ).each( function() {
         if( $(this).css( 'line-height' ) == 'normal' ) {
-            $(this).css( 'line-height', theyes_initial_line_height );
+            $(this).css( 'line-height', theyes_normal_line_height );
         }
+        var initial_line_height = $(this).css( 'line-height' );
         var avg_words_per_line = theyes_average_words_per_line( this );
         var font_size;
         var adjusted = false;
@@ -34,8 +36,14 @@ function theyes_adjust_fonts() {
         }
         if( ! adjusted ) {
             unadjusted.push( this );
-        } else if( font_size && ! smallest_new_font_size || font_size < smallest_new_font_size ) {
-            smallest_new_font_size = font_size;
+        } else {
+            if( font_size && ! smallest_new_font_size || font_size < smallest_new_font_size ) {
+                smallest_new_font_size = font_size;
+            }
+            if( $(this).css( 'line-height' ) == initial_line_height ) {
+                $(this).css( 'line-height', '1.3em' );
+                break;
+            }
         }
     } );
 
