@@ -42,7 +42,6 @@ function theyes_adjust_fonts() {
             }
             if( $(this).css( 'line-height' ) == initial_line_height ) {
                 $(this).css( 'line-height', '1.3em' );
-                break;
             }
         }
     } );
